@@ -20,7 +20,8 @@ class ContactForm extends Component {
     id: this.labelNumberId,
     type: 'tel',
     name: 'number',
-    pattern: '+?d{1,4}?[-.s]?(?d{1,3}?)?[-.s]?d{1,4}[-.s]?d{1,4}[-.s]?d{1,9}',
+    pattern:
+      '\\+?\\d{1,4}?[-.\\s]?\\(?\\d{1,3}?\\)?[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,9}',
     title:
       'Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +',
   };
@@ -28,23 +29,26 @@ class ContactForm extends Component {
   state = {
     name: '',
     number: '',
-    a: 1,
   };
 
-  handleNameInput = e => {
-    const { value } = e.target;
-    this.setState({ name: value });
-  };
-
-  handleNumberInput = e => {
-    const { value } = e.target;
-    this.setState({ number: value });
+  handleInput = e => {
+    const { value, name } = e.target;
+    this.setState({ [name]: value });
   };
 
   handleFormSubmit = e => {
     e.preventDefault();
+    this.props.newContactHandler({
+      id: uuidv4(),
+      name: this.state.name,
+      number: this.state.number,
+    });
+    this.reset();
   };
 
+  reset = () => {
+    this.setState({ name: '', number: '' });
+  };
   render() {
     return (
       <form className={s.contactForm} onSubmit={this.handleFormSubmit}>
@@ -53,9 +57,10 @@ class ContactForm extends Component {
             Name
           </label>
           <input
+            value={this.state.name}
             required
             {...this.inputNameProps}
-            onChange={this.handleNameInput}
+            onChange={this.handleInput}
           />
         </div>
         <div className={s.numberBlock}>
@@ -64,9 +69,10 @@ class ContactForm extends Component {
           </label>
 
           <input
+            value={this.state.number}
             required
             {...this.inputNumberProps}
-            onChange={this.handleNumberInput}
+            onChange={this.handleInput}
           />
         </div>
         <button type="submit">Add contact </button>

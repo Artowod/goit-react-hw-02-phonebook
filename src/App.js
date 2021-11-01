@@ -20,10 +20,7 @@ class App extends Component {
     const filterWord = this.state.filter;
     let result = [];
     result = this.state.contacts.filter(item => {
-      return Object.values(item)
-        .join('')
-        .toLowerCase()
-        .includes(filterWord.toLowerCase());
+      return item.name.toLowerCase().includes(filterWord.toLowerCase());
     });
     return result;
   };
@@ -33,11 +30,18 @@ class App extends Component {
     this.setState({ filter: value });
   };
 
+  addContact = newContact => {
+    this.setState(prevState => {
+      const result = [...prevState.contacts, newContact];
+      return { contacts: result };
+    });
+  };
+
   render() {
     return (
       <div className="App">
         <h1>Phonebook</h1>
-        <ContactForm />
+        <ContactForm newContactHandler={this.addContact} />
 
         <h2>Contacts</h2>
         <Filter filterHandle={this.filterHandle} />
