@@ -31,10 +31,16 @@ class App extends Component {
   };
 
   addContact = newContact => {
-    this.setState(prevState => {
-      const result = [...prevState.contacts, newContact];
-      return { contacts: result };
+    const matchedContactsList = this.state.contacts.filter(item => {
+      return item.name.toLowerCase() === newContact.name.toLowerCase();
     });
+
+    matchedContactsList.length !== 0
+      ? alert(`${newContact.name} is already in contacts.`)
+      : this.setState(prevState => {
+          const result = [...prevState.contacts, newContact];
+          return { contacts: result };
+        });
   };
 
   deleteHandler = e => {

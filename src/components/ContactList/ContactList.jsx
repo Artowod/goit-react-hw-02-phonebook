@@ -16,5 +16,4 @@ const ContactList = ({ contactsList, deleteHandler }) => {
     </ul>
   );
 };
-
 export default ContactList;

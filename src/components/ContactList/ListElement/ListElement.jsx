@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import s from './ListElement.module.css';
 const ListElement = ({ name, number, deleteBtnName, deleteHandler }) => {
   return (
@@ -13,6 +14,13 @@ const ListElement = ({ name, number, deleteBtnName, deleteHandler }) => {
       </button>
     </li>
   );
+};
+
+ListElement.propTypes = {
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
+  deleteBtnName: PropTypes.string.isRequired,
+  deleteHandler: PropTypes.func.isRequired,
 };
 
 export default ListElement;
