@@ -25,7 +25,7 @@ class App extends Component {
     return result;
   };
 
-  filterHandle = e => {
+  filterHandler = e => {
     const { value } = e.target;
     this.setState({ filter: value });
   };
@@ -37,6 +37,14 @@ class App extends Component {
     });
   };
 
+  deleteHandler = e => {
+    const { name: contactId } = e.target;
+    const resultedContactsList = this.state.contacts.filter(contact => {
+      return contact.id !== contactId;
+    });
+    this.setState({ contacts: resultedContactsList });
+  };
+
   render() {
     return (
       <div className="App">
@@ -44,8 +52,14 @@ class App extends Component {
         <ContactForm newContactHandler={this.addContact} />
 
         <h2>Contacts</h2>
-        <Filter filterHandle={this.filterHandle} />
-        <ContactList contactsList={this.filteredContactList()} />
+        <Filter
+          filterWord={this.state.filter}
+          filterHandler={this.filterHandler}
+        />
+        <ContactList
+          contactsList={this.filteredContactList()}
+          deleteHandler={this.deleteHandler}
+        />
       </div>
     );
   }
