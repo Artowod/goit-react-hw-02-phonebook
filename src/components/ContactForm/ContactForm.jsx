@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import '../../App';
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import s from './ContactForm.module.css';
 
 class ContactForm extends Component {
@@ -80,5 +81,9 @@ class ContactForm extends Component {
     );
   }
 }
+
+ContactForm.propTypes = {
+  newContactHandler: PropTypes.func.isRequired,
+};
 
 export default ContactForm;

@@ -31,12 +31,13 @@ class App extends Component {
   };
 
   addContact = newContact => {
+    const { name } = newContact;
     const matchedContactsList = this.state.contacts.filter(item => {
-      return item.name.toLowerCase() === newContact.name.toLowerCase();
+      return item.name.toLowerCase() === name.toLowerCase();
     });
 
     matchedContactsList.length !== 0
-      ? alert(`${newContact.name} is already in contacts.`)
+      ? alert(`${name} is already in contacts.`)
       : this.setState(prevState => {
           const result = [...prevState.contacts, newContact];
           return { contacts: result };
